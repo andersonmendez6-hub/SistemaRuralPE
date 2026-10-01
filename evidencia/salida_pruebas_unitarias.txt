@@ -1,0 +1,14 @@
+test_conteo_por_tipo_usa_polimorfismo (test_viabilidad.PruebaPipelineFuncional.test_conteo_por_tipo_usa_polimorfismo) ... ok
+test_filtro_por_periodo_excluye_fuera_de_rango (test_viabilidad.PruebaPipelineFuncional.test_filtro_por_periodo_excluye_fuera_de_rango) ... ok
+test_funciones_no_modifican_la_coleccion_original (test_viabilidad.PruebaPipelineFuncional.test_funciones_no_modifican_la_coleccion_original) ... ok
+test_estado_de_cita_invalido_lanza_excepcion (test_viabilidad.PruebaReglasDeNegocio.test_estado_de_cita_invalido_lanza_excepcion) ... ok
+test_estado_de_cita_valido_se_actualiza (test_viabilidad.PruebaReglasDeNegocio.test_estado_de_cita_valido_se_actualiza) ... ok
+test_dni_invalido_lanza_excepcion (test_viabilidad.PruebaSeguridadDatosPersonales.test_dni_invalido_lanza_excepcion) ... ok
+test_enmascarado_solo_muestra_ultimos_tres_digitos (test_viabilidad.PruebaSeguridadDatosPersonales.test_enmascarado_solo_muestra_ultimos_tres_digitos) ... ok
+test_seudonimo_es_determinista_y_verificable (test_viabilidad.PruebaSeguridadDatosPersonales.test_seudonimo_es_determinista_y_verificable) ... ok
+test_seudonimo_no_contiene_el_dni (test_viabilidad.PruebaSeguridadDatosPersonales.test_seudonimo_no_contiene_el_dni) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.000s
+
+OK

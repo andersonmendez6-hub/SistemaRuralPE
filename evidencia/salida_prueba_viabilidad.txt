@@ -1,0 +1,66 @@
+PRUEBA DE VIABILIDAD - SistemaRural-PE
+Fecha de ejecución: 2026-09-20
+Python: 3.12.3
+
+====================================================================
+1. PREPARACIÓN DE DATOS FICTICIOS (POO)
+====================================================================
+Pacientes generados : 400
+Atenciones generadas: 5200
+Ejemplo de paciente : Flor Alvarado Mendoza | DNI mostrado: *****000 | ID almacenado: 2a0502bbcf93292e
+Polimorfismo        : Paciente del Puesto de Salud I-1 Nuevo Amanecer
+
+====================================================================
+2. ESCRITURA LOCAL SIN INTERNET (PERSISTENCIA)
+====================================================================
+Registros escritos en datos/pacientes_ficticios.json: 400
+
+====================================================================
+3. DISPARO DEL EVENTO (PARADIGMA ORIENTADO A EVENTOS)
+====================================================================
+Manejadores suscritos: generar_reporte, registrar_paciente
+
+====================================================================
+4. REPORTE GENERADO POR EL PIPELINE FUNCIONAL (RF8)
+====================================================================
+Periodo          : 2025-09-21 a 2026-09-20
+Total atenciones : 5200
+Atenciones por tipo (map + reduce):
+   - CRED        : 1716
+   - Gestante    : 1736
+   - Vacunación  : 1748
+Muestra de resúmenes (polimorfismo sobre la colección):
+   [2026-01-26] Vacunación: Vacuna Pentavalente, dosis 2
+   [2026-06-19] Vacunación: Vacuna Pentavalente, dosis 3
+   [2026-05-02] Gestante: Control N.° 6, 10 semanas de gestación
+   [2026-08-17] Gestante: Control N.° 7, 22 semanas de gestación
+   [2026-05-27] Gestante: Control N.° 6, 27 semanas de gestación
+Tiempo de generación: 2.03 ms
+
+====================================================================
+5. VALIDACIÓN DE MANEJO DE ERRORES Y DATOS PERSONALES
+====================================================================
+DNI inválido rechazado -> El DNI debe ser una cadena de 8 dígitos numéricos.
+Claves almacenadas por paciente: ['apellidos', 'comunidad', 'fecha_nacimiento', 'id', 'nombres', 'sexo']
+Seudónimo de ejemplo (45678912) -> 2324a52635a27de1
+
+====================================================================
+6. VERIFICACIÓN DE LOS CRITERIOS DE ACEPTACIÓN
+====================================================================
+   [OK] C1: El reporte se generó a partir de un evento emitido
+   [OK] C2: Los tres tipos de registro se procesaron y el conteo cuadra
+   [OK] C3: No hay DNI en texto plano en el archivo local
+   [OK] C4: Tiempo 2.03 ms < 2000 ms
+   [OK] C5: Ejecución completa sin conexión a internet
+
+====================================================================
+7. VEREDICTO
+====================================================================
+VEREDICTO: FUNCIONA
+La integración de los tres paradigmas es viable con el diseño
+propuesto y se mantiene el tratamiento seguro de datos personales.
+
+DECISIÓN DERIVADA: se confirma el alcance del módulo (RF1-RF5 y
+RF8) y se mantiene Python 3.x con Tkinter y almacenamiento local
+JSON. El pipeline de reportes se declara función pura y se
+incorpora al plan de trabajo como componente reutilizable.
