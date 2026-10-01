@@ -216,3 +216,6 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Datos ficticios generados localmente durante la demostración
+/datos/pacientes_ficticios.json
