@@ -6,9 +6,10 @@ pacientes antes de que lleguen a la capa de persistencia, conforme a la
 Ley N.° 29733 de Protección de Datos Personales.
 
 Decisión de diseño: se usa únicamente la biblioteca estándar de Python
-(hashlib, hmac, secrets) para que el prototipo pueda ejecutarse en las
-computadoras del establecimiento de salud sin instalar dependencias
-externas ni requerir conexión a internet.
+(hashlib, hmac, secrets) para que este módulo en particular pueda
+ejecutarse sin instalar dependencias externas ni requerir conexión a
+internet. El cifrado del archivo completo (que sí usa una dependencia
+externa) vive aparte, en persistencia.py.
 """
 
 import hashlib

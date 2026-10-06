@@ -1,6 +1,6 @@
 PRUEBA DE VIABILIDAD - SistemaRural-PE
-Fecha de ejecución: 2026-09-20
-Python: 3.12.3
+Fecha de ejecución: 2026-10-03
+Python: 3.13.16
 
 ====================================================================
 1. PREPARACIÓN DE DATOS FICTICIOS (POO)
@@ -11,7 +11,7 @@ Ejemplo de paciente : Flor Alvarado Mendoza | DNI mostrado: *****000 | ID almace
 Polimorfismo        : Paciente del Puesto de Salud I-1 Nuevo Amanecer
 
 ====================================================================
-2. ESCRITURA LOCAL SIN INTERNET (PERSISTENCIA)
+2. ESCRITURA LOCAL CIFRADA Y SIN INTERNET (PERSISTENCIA)
 ====================================================================
 Registros escritos en datos/pacientes_ficticios.json: 400
 
@@ -23,35 +23,38 @@ Manejadores suscritos: generar_reporte, registrar_paciente
 ====================================================================
 4. REPORTE GENERADO POR EL PIPELINE FUNCIONAL (RF8)
 ====================================================================
-Periodo          : 2025-09-21 a 2026-09-20
+Periodo          : 2025-10-04 a 2026-10-03
 Total atenciones : 5200
 Atenciones por tipo (map + reduce):
    - CRED        : 1716
    - Gestante    : 1736
    - Vacunación  : 1748
 Muestra de resúmenes (polimorfismo sobre la colección):
-   [2026-01-26] Vacunación: Vacuna Pentavalente, dosis 2
-   [2026-06-19] Vacunación: Vacuna Pentavalente, dosis 3
-   [2026-05-02] Gestante: Control N.° 6, 10 semanas de gestación
-   [2026-08-17] Gestante: Control N.° 7, 22 semanas de gestación
-   [2026-05-27] Gestante: Control N.° 6, 27 semanas de gestación
-Tiempo de generación: 2.03 ms
+   [2026-02-08] Vacunación: Vacuna Pentavalente, dosis 2
+   [2026-07-02] Vacunación: Vacuna Pentavalente, dosis 3
+   [2026-05-15] Gestante: Control N.° 6, 10 semanas de gestación
+   [2026-08-30] Gestante: Control N.° 7, 22 semanas de gestación
+   [2026-06-09] Gestante: Control N.° 6, 27 semanas de gestación
+Tiempo de generación: 5.21 ms
 
 ====================================================================
 5. VALIDACIÓN DE MANEJO DE ERRORES Y DATOS PERSONALES
 ====================================================================
 DNI inválido rechazado -> El DNI debe ser una cadena de 8 dígitos numéricos.
-Claves almacenadas por paciente: ['apellidos', 'comunidad', 'fecha_nacimiento', 'id', 'nombres', 'sexo']
+
+(Todo el bloque anterior corrió con la red bloqueada por software y no se rompió: no necesitó internet)
+Claves almacenadas por paciente (ya descifrado): ['apellidos', 'comunidad', 'fecha_nacimiento', 'id', 'nombres', 'sexo']
 Seudónimo de ejemplo (45678912) -> 2324a52635a27de1
+Primeros 40 caracteres del archivo EN DISCO (cifrado): gAAAAABqwSridpkphzT7iuOy62ovAty5-R_M3I7S...
 
 ====================================================================
 6. VERIFICACIÓN DE LOS CRITERIOS DE ACEPTACIÓN
 ====================================================================
    [OK] C1: El reporte se generó a partir de un evento emitido
    [OK] C2: Los tres tipos de registro se procesaron y el conteo cuadra
-   [OK] C3: No hay DNI en texto plano en el archivo local
-   [OK] C4: Tiempo 2.03 ms < 2000 ms
-   [OK] C5: Ejecución completa sin conexión a internet
+   [OK] C3: El archivo en disco está cifrado; nada es legible sin la llave
+   [OK] C4: Tiempo 5.21 ms < 2000 ms
+   [OK] C5: Ejecución completa con la red bloqueada por software (no solo por inspección de código)
 
 ====================================================================
 7. VEREDICTO
@@ -62,5 +65,5 @@ propuesto y se mantiene el tratamiento seguro de datos personales.
 
 DECISIÓN DERIVADA: se confirma el alcance del módulo (RF1-RF5 y
 RF8) y se mantiene Python 3.x con Tkinter y almacenamiento local
-JSON. El pipeline de reportes se declara función pura y se
-incorpora al plan de trabajo como componente reutilizable.
+JSON cifrado. El pipeline de reportes se declara función pura y
+se incorpora al plan de trabajo como componente reutilizable.

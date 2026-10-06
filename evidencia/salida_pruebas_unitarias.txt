@@ -1,3 +1,21 @@
+test_busqueda_con_resultado (test_viabilidad.PruebaBusquedaPaciente.test_busqueda_con_resultado) ... ok
+test_busqueda_sin_coincidencias (test_viabilidad.PruebaBusquedaPaciente.test_busqueda_sin_coincidencias) ... ok
+test_al_generar_reporte_delega_a_reportes (test_viabilidad.PruebaControlador.test_al_generar_reporte_delega_a_reportes) ... ok
+test_al_registrar_paciente_exitoso (test_viabilidad.PruebaControlador.test_al_registrar_paciente_exitoso) ... ok
+test_al_registrar_paciente_rechaza_dni_invalido (test_viabilidad.PruebaControlador.test_al_registrar_paciente_rechaza_dni_invalido) ... ok
+test_al_registrar_paciente_rechaza_duplicado (test_viabilidad.PruebaControlador.test_al_registrar_paciente_rechaza_duplicado) ... ok
+test_despachador_ejecuta_el_manejador_suscrito (test_viabilidad.PruebaDespachadorEventos.test_despachador_ejecuta_el_manejador_suscrito) ... ok
+test_despachador_lanza_error_si_nadie_esta_suscrito (test_viabilidad.PruebaDespachadorEventos.test_despachador_lanza_error_si_nadie_esta_suscrito) ... ok
+test_agrega_paciente_y_personal (test_viabilidad.PruebaEstablecimiento.test_agrega_paciente_y_personal) ... ok
+test_programa_cita (test_viabilidad.PruebaEstablecimiento.test_programa_cita) ... ok
+test_fabrica_crea_cred_correctamente (test_viabilidad.PruebaFabricaRegistroClinico.test_fabrica_crea_cred_correctamente) ... ok
+test_fabrica_crea_gestante_correctamente (test_viabilidad.PruebaFabricaRegistroClinico.test_fabrica_crea_gestante_correctamente) ... ok
+test_fabrica_crea_vacunacion_correctamente (test_viabilidad.PruebaFabricaRegistroClinico.test_fabrica_crea_vacunacion_correctamente) ... ok
+test_fabrica_rechaza_tipo_desconocido (test_viabilidad.PruebaFabricaRegistroClinico.test_fabrica_rechaza_tipo_desconocido) ... ok
+test_archivo_en_disco_queda_cifrado (test_viabilidad.PruebaPersistenciaCifrada.test_archivo_en_disco_queda_cifrado) ... ok
+test_cargar_pacientes_sin_archivo_devuelve_lista_vacia (test_viabilidad.PruebaPersistenciaCifrada.test_cargar_pacientes_sin_archivo_devuelve_lista_vacia) ... ok
+test_guardar_y_cargar_recupera_los_mismos_datos (test_viabilidad.PruebaPersistenciaCifrada.test_guardar_y_cargar_recupera_los_mismos_datos) ... ok
+test_singleton_siempre_devuelve_la_misma_instancia (test_viabilidad.PruebaPersistenciaCifrada.test_singleton_siempre_devuelve_la_misma_instancia) ... ok
 test_conteo_por_tipo_usa_polimorfismo (test_viabilidad.PruebaPipelineFuncional.test_conteo_por_tipo_usa_polimorfismo) ... ok
 test_filtro_por_periodo_excluye_fuera_de_rango (test_viabilidad.PruebaPipelineFuncional.test_filtro_por_periodo_excluye_fuera_de_rango) ... ok
 test_funciones_no_modifican_la_coleccion_original (test_viabilidad.PruebaPipelineFuncional.test_funciones_no_modifican_la_coleccion_original) ... ok
@@ -9,6 +27,6 @@ test_seudonimo_es_determinista_y_verificable (test_viabilidad.PruebaSeguridadDat
 test_seudonimo_no_contiene_el_dni (test_viabilidad.PruebaSeguridadDatosPersonales.test_seudonimo_no_contiene_el_dni) ... ok
 
 ----------------------------------------------------------------------
-Ran 9 tests in 0.000s
+Ran 27 tests in 0.007s
 
 OK

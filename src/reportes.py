@@ -1,5 +1,5 @@
 """
-Generación de reportes de atención (RF8).
+Generación de reportes de atención (RF8) y búsqueda de pacientes.
 
 Paradigma: Programación Funcional.
 Todas las funciones de este módulo son puras: no modifican la colección
@@ -46,6 +46,17 @@ def resumenes_legibles(registros, limite: int = 5):
         lambda r: f"[{r.fecha_atencion.isoformat()}] {r.tipo}: {r.resumen()}",
         registros[:limite]
     ))
+
+
+def buscar_paciente_por_id(pacientes, id_seudonimo: str):
+    """
+    filter: localiza un paciente por su identificador seudonimizado.
+
+    Devuelve el objeto Paciente si existe, o None si no hay coincidencia.
+    No necesita el DNI real en ningún momento, solo el código ya guardado.
+    """
+    encontrados = list(filter(lambda p: p.dni_seudonimo == id_seudonimo, pacientes))
+    return encontrados[0] if encontrados else None
 
 
 def pacientes_menores_de(pacientes, edad_limite: int):

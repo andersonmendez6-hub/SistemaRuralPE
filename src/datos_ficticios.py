@@ -8,8 +8,7 @@ personal real, conforme a las condiciones de entrega del desafío.
 import random
 from datetime import date, timedelta
 
-from .dominio import (ControlCRED, ControlGestante, ControlVacunacion,
-                      Paciente)
+from .dominio import FabricaRegistroClinico, Paciente
 
 NOMBRES = ["Rosa", "Julián", "Milagros", "Elmer", "Yanet", "Wilder",
            "Marleni", "Hipólito", "Flor", "Edilberto"]
@@ -45,6 +44,8 @@ def generar_registros(pacientes, cantidad: int, semilla: int = 2026) -> list:
 
     La heterogeneidad es intencional: es lo que permite comprobar que el
     polimorfismo y el pipeline funcional trabajan sobre una sola colección.
+    Usa FabricaRegistroClinico para no repetir, aquí, un if/elif propio
+    por cada tipo de registro clínico.
     """
     aleatorio = random.Random(semilla + 1)
     responsables = ["Téc. Enf. jefe", "Obstetra", "Auxiliar de salud"]
@@ -58,17 +59,20 @@ def generar_registros(pacientes, cantidad: int, semilla: int = 2026) -> list:
         tipo = aleatorio.choice(["vacuna", "cred", "gestante"])
 
         if tipo == "vacuna":
-            registros.append(ControlVacunacion(
-                paciente.dni_seudonimo, fecha_atencion, responsable,
-                aleatorio.choice(VACUNAS), aleatorio.randint(1, 3)))
+            datos = {"vacuna": aleatorio.choice(VACUNAS),
+                     "dosis": aleatorio.randint(1, 3)}
+            tipo_fabrica = "vacunacion"
         elif tipo == "cred":
-            registros.append(ControlCRED(
-                paciente.dni_seudonimo, fecha_atencion, responsable,
-                round(aleatorio.uniform(3.0, 18.0), 1),
-                round(aleatorio.uniform(50.0, 110.0), 1)))
+            datos = {"peso_kg": round(aleatorio.uniform(3.0, 18.0), 1),
+                     "talla_cm": round(aleatorio.uniform(50.0, 110.0), 1)}
+            tipo_fabrica = "cred"
         else:
-            registros.append(ControlGestante(
-                paciente.dni_seudonimo, fecha_atencion, responsable,
-                aleatorio.randint(6, 40), aleatorio.randint(1, 8)))
+            datos = {"semanas_gestacion": aleatorio.randint(6, 40),
+                     "numero_control": aleatorio.randint(1, 8)}
+            tipo_fabrica = "gestante"
+
+        registros.append(FabricaRegistroClinico.crear(
+            tipo_fabrica, paciente.dni_seudonimo, fecha_atencion,
+            responsable, **datos))
 
     return registros

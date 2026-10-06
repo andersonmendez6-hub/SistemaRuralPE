@@ -6,6 +6,11 @@ Aporta la jerarquía Persona -> (Paciente, PersonalSalud) y la jerarquía
 RegistroClinico -> (ControlVacunacion, ControlCRED, ControlGestante),
 que resuelve por polimorfismo el problema de tratar de forma uniforme
 tres tipos de atención con reglas clínicas distintas.
+
+También incluye Establecimiento (agregación de pacientes y personal,
+composición de citas) y FabricaRegistroClinico (patrón Factory Method),
+agregados para cumplir con los requisitos de la Evaluación Final:
+al menos 3 tipos de relación UML y al menos 2 patrones de diseño.
 """
 
 from abc import ABC, abstractmethod
@@ -105,6 +110,9 @@ class RegistroClinico(ABC):
 
     El polimorfismo permite que el módulo de reportes recorra una sola
     colección heterogénea de registros sin condicionales por tipo.
+
+    No hereda de Persona: una atención no es un tipo de persona, es un
+    dato asociado a una persona (guarda su id, no la hereda).
     """
 
     def __init__(self, id_paciente: str, fecha_atencion: date, responsable: str):
@@ -217,3 +225,88 @@ class Cita:
                 f"Valores permitidos: {', '.join(self.ESTADOS_VALIDOS)}"
             )
         self._estado = nuevo_estado
+
+
+class FabricaRegistroClinico:
+    """
+    Patrón de diseño: Factory Method.
+
+    Encapsula en un único lugar la decisión de qué subclase de
+    RegistroClinico construir. Quien pide un registro nuevo (por ejemplo,
+    datos_ficticios.py) no necesita conocer las tres subclases concretas
+    ni repetir su propio if/elif para elegir cuál instanciar: se lo pide
+    a la fábrica por nombre.
+    """
+
+    TIPOS_VALIDOS = ("vacunacion", "cred", "gestante")
+
+    @staticmethod
+    def crear(tipo: str, id_paciente: str, fecha_atencion: date,
+              responsable: str, **datos) -> RegistroClinico:
+        tipo = tipo.strip().lower()
+
+        if tipo == "vacunacion":
+            return ControlVacunacion(id_paciente, fecha_atencion, responsable,
+                                     datos["vacuna"], datos["dosis"])
+        if tipo == "cred":
+            return ControlCRED(id_paciente, fecha_atencion, responsable,
+                               datos["peso_kg"], datos["talla_cm"])
+        if tipo == "gestante":
+            return ControlGestante(id_paciente, fecha_atencion, responsable,
+                                   datos["semanas_gestacion"], datos["numero_control"])
+
+        raise ValueError(
+            f"Tipo de registro clínico no reconocido: '{tipo}'. "
+            f"Valores permitidos: {', '.join(FabricaRegistroClinico.TIPOS_VALIDOS)}"
+        )
+
+
+class Establecimiento:
+    """
+    Puesto de Salud I-1 "Nuevo Amanecer".
+
+    Agrega pacientes y personal de salud: ambos existen y tienen sentido
+    como personas aunque se les deje de asociar a este establecimiento en
+    particular (agregación, propiedad débil).
+
+    Compone las citas: una Cita solo tiene sentido como parte de la
+    operación diaria de ESTE establecimiento — si el establecimiento
+    dejara de operar, sus citas programadas dejan de tener sentido
+    (composición, propiedad fuerte).
+    """
+
+    def __init__(self, nombre: str):
+        self._nombre = nombre
+        self._pacientes = []    # agregación
+        self._personal = []     # agregación
+        self._citas = []        # composición
+
+    @property
+    def nombre(self) -> str:
+        return self._nombre
+
+    def agregar_paciente(self, paciente: Paciente) -> None:
+        self._pacientes.append(paciente)
+
+    def agregar_personal(self, trabajador: PersonalSalud) -> None:
+        self._personal.append(trabajador)
+
+    def programar_cita(self, cita: Cita) -> None:
+        self._citas.append(cita)
+
+    @property
+    def pacientes(self) -> list:
+        return list(self._pacientes)
+
+    @property
+    def personal(self) -> list:
+        return list(self._personal)
+
+    @property
+    def citas(self) -> list:
+        return list(self._citas)
+
+    def resumen(self) -> str:
+        return (f"{self._nombre}: {len(self._pacientes)} pacientes, "
+                f"{len(self._personal)} personal de salud, "
+                f"{len(self._citas)} citas programadas")
